@@ -1,52 +1,69 @@
 import React, { useState } from 'react';
 import {View, Text, StyleSheet, TextInput, Button} from 'react-native';
-import { styles, MahendraStyle } from './style';
+import { styles } from './style';
 
 
 
+export const Form = () => {
+    const [name, setName] = useState('')
+    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [display, setDisplay] = useState(false)
+    
+    
 
-export const Change = () => {
-    const [name, setName] = useState("")
+
+    const restFormdata = () => {
+        setDisplay(false);
+        setEmail('');
+        setPassword('');
+        setEmail('');
+    }
+
+
+
     return(
         <View>
-            <Text style={styles.text}>TATA</Text>
-            <Text style={MahendraStyle.text}>Mahendra</Text>
-            <Text style={[ styles.text, styles.MahendraStyle, {marginTop:20}]}>Mahendra + TATA</Text>
-            <TextInput placeholder='Enter your name' style={styles_name.textInput}
-            onChangeText={(text) => setName(text)} />
-            <Button 
-            title='click'
-             onPress={() => setName('')} 
-             style={button_style.button} 
-             
-             
-             color='red'></Button>
+            <TextInput 
+            placeholder='Enter Name' style={styles.textarea}
+            onChangeText={(text) => setName(text)}
+            value={name}>
+            </TextInput>
+
+            <TextInput
+            placeholder='Enter Password' style={styles.textarea}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry={true}>
+            </TextInput>
+           
+
+            <TextInput 
+            placeholder='Enter Email' style={styles.textarea}
+            onChangeText={(text) => setEmail(text)}
+            value={email}>
+            </TextInput>
+
+            <View style={styles.textarea}>
+            <Button title='OK' onPress={() => setDisplay(true)}></Button>
+            </View>
+            <Button title='clear data' onPress={restFormdata}></Button>
+            <View>
+                {
+                    display ?
+                    <View>
+                        <Text style={styles.text}>Your Name: {name}</Text>
+                        <Text style={styles.text}>Your Name: {password}</Text>
+                        <Text style={styles.text}>Your Name: {email}</Text>
+
+                    </View>
+                    : null
+                }
+            </View>
+            
+            
+            
         </View>
+        
     )
 }
-
-
-
-const styles_name = StyleSheet.create({
-    textInput:{
-        color:'red',
-        backgroundColor:'green', 
-        borderRadius:10,
-        fontWeight:'bold',
-        width:300,
-
-
-    }
-})
-
-
-
-const button_style = StyleSheet.create({
-    button:{
-        width:30,
-        marginTop:10,
-        color:'green',
-
-
-    }
-})

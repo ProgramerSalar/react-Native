@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import { Change } from './components/company';
+import { Form } from './components/company';
 
 
 
@@ -14,7 +14,8 @@ function App() {
       
         
       </Text>
-      <Change/>
+      <Form/>
+     
       
 
     </View>
