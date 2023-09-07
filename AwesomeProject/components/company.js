@@ -1,42 +1,43 @@
 import React, { useState, Component, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, FlatList, ScrollView, SectionList, TouchableHighlight, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, FlatList, ScrollView, SectionList, TouchableHighlight, TouchableOpacity, ActivityIndicator, Modal } from 'react-native';
 // import { styles } from './style';
 import Student from './student';
 
 
 
-
 export const Manish = () => {
-    const [show, setShow] = useState(false)
-    display = ()=>{
-        setShow(true)
-
-    }
-
-    // setTimeout(() => {
-    //     setShow(false)
-    // },5000)
-
-
     return(
         <View>
-            {/* <ActivityIndicator size={50} color="blue" animating={show}></ActivityIndicator> */}
-            {/* <ActivityIndicator size="small" color="blue" animating={show}></ActivityIndicator>  in the ios are only put on the string value in the size = (large, small, medium) */}
-            
-            {
-                show ? <ActivityIndicator size={50} color="blue" animating={show}></ActivityIndicator> :null
-            }
-            <Button title='OK' onPress={display}></Button>
+            <Modal
+            transparent={true}
+            style={styles.modalView}
+            >
+                <Text>Hello</Text>
+            </Modal>
+            <View style={styles.buttonView}>
+            <Button title='OPen Modals'></Button>
+            </View>
         </View>
     )
-
 }
 
 
-const styels = StyleSheet.create({
+const styles = StyleSheet.create({
     main:{
-        flex:1,
+        flex:1
+    },
+    buttonView:{
+        // flex:1,
+        justifyContent:'flex-end'
+
+    },
+    modalView:{
+        backgroundColor:'blue',
+        justifyContent:'center',
         alignItems:'center',
         justifyContent:'center',
+
     }
+
+
 })
