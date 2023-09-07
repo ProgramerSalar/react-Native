@@ -7,33 +7,39 @@ import Student from './student';
 
 
 
-
 export const Manish = () => {
-    const [hide, hideState] = useState(false)
+    const [show, setShow] = useState(true)
 
     return(
         <View>
-            <Text>On Hide </Text>
-            {/* <Button title='Hide' onPress={() => hideState(false)}></Button>
-            <Button title='Show' onPress={() => hideState(true)}></Button> */}
-            <Button title='Tongle Component' onPress={() => hideState(!hide)}></Button>
-            
+            <Text>Hello</Text>
+            <Button title='Tongle' onPress={() => setShow(!show)}></Button>
             {
-                hide ? <User/> : null
+                show ? <User/> : null
             }
-        
             
         </View>
     )
 }
 
 
-
 const User = () => {
+
+    let timer = setInterval(() => {
+        console.warn('Timer')
+
+    },2000)
+
+    useEffect(() => 
+    {
+        return()=> clearInterval(timer)
+    }
+    )
+
     return(
         <View>
-            <Text>Hide components</Text>
-
+            <Text>Student</Text>
         </View>
     )
+
 }
