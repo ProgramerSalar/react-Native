@@ -1,47 +1,42 @@
 import React, { useState, Component, useEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, Button, FlatList, ScrollView, SectionList, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button, FlatList, ScrollView, SectionList, TouchableHighlight, TouchableOpacity, ActivityIndicator } from 'react-native';
 // import { styles } from './style';
 import Student from './student';
 
 
 
+
 export const Manish = () => {
-    return (
+    const [show, setShow] = useState(false)
+    display = ()=>{
+        setShow(true)
+
+    }
+
+    // setTimeout(() => {
+    //     setShow(false)
+    // },5000)
+
+
+    return(
         <View>
-            <Text>Hello</Text>
-            <TouchableHighlight>
-                <Text style={[styles.button, styles.sucess]}>Button</Text>
-            </TouchableHighlight>
-           
+            {/* <ActivityIndicator size={50} color="blue" animating={show}></ActivityIndicator> */}
+            {/* <ActivityIndicator size="small" color="blue" animating={show}></ActivityIndicator>  in the ios are only put on the string value in the size = (large, small, medium) */}
+            
+            {
+                show ? <ActivityIndicator size={50} color="blue" animating={show}></ActivityIndicator> :null
+            }
+            <Button title='OK' onPress={display}></Button>
         </View>
     )
+
 }
 
 
-
-
-const styles = StyleSheet.create({
-
-    button:{
-        backgroundColor:'red',
-        color:'white',
-        fontSize:24,
-        textAlign:'center',
-        padding:10,
-        margin:10,
-        borderRadius:10,
-        // shadowColor:'yellow',
-        // elevation:10,
-        // shadowOpacity:1
-    }, 
-    sucess:{
-        backgroundColor:'green',
-        color:'white',
-        fontSize:24,
-        textAlign:'center',
-        padding:10,
-        margin:10,
-        borderRadius:10,
-        
+const styels = StyleSheet.create({
+    main:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
     }
 })
