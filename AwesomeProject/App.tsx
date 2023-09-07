@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import { List } from './components/company';
+import { Manish } from './components/company';
 
 
 
@@ -14,7 +14,7 @@ function App() {
       
         
       </Text>
-      <List/>
+      <Manish/>
     
      
       
