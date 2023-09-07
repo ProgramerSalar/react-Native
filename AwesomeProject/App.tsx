@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import  Manish  from './components/company';
+import  {Manish}  from './components/company';
 
 
 

@@ -4,13 +4,11 @@ import { View, Text, StyleSheet, TextInput, Button, FlatList, ScrollView, Sectio
 
 
 
-class Student extends Component{
-    render(){
-
-       
-        return(
+class Student extends Component {
+    render() {
+        return (
             <View>
-                <Text>Student Name: {this.props.name} </Text>
+                <Text>Your Name: {this.props.name}</Text>
             </View>
         )
     }
