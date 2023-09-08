@@ -6,24 +6,50 @@ import { Manish } from './components/company';
 
 
 
-export const App = () => {
-  return(
-    <View>
-      <Text>Platform: {Platform.OS}</Text>
-      {
-        
-          Platform.OS == 'android'  ? 
-          <View><Text>Platform: {Platform.OS}</Text></View>
-          
-          :
-          <View><Text>Platform: {Platform.OS}</Text></View>
 
-      
+export const App = () => {
+  const [show, setShow] = useState(false)
+  return(
+    <View style={styles.container}>
+      {
+        show ? 
+        <View style={styles.modal}>
+        <View style={styles.body}>
+        <Text>Hello World</Text>
+          <Button title='Close' onPress={() => setShow(false)}></Button>
+        
+        </View>
+
+      </View>
+      : null
 
       }
-      <Text>{JSON.stringify(Platform)}</Text>
+      <Button title='OPen' onPress={() => setShow(true)}></Button>
     </View>
   )
 }
  
 
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    justifyContent:'flex-end'
+
+  },
+  modal:{
+    flex:1,
+    backgroundColor:'green',
+    justifyContent:'center',
+    alignItems:'center',
+  },
+  body:{
+    backgroundColor:'white',
+    height:300,
+    width:300,
+   justifyContent:'space-around',
+    padding:20,
+
+
+  }
+
+})
