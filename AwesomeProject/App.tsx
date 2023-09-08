@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, Button, StyleSheet, Modal, Pressable } from 'react-native';
+import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar } from 'react-native';
 import { Manish } from './components/company';
 
 
@@ -7,47 +7,30 @@ import { Manish } from './components/company';
 
 
 export const App = () => {
-  return(
-    <View style={styles.main}>
-      <Pressable 
-      // onPress={() => console.warn('Normal press')}
-      // onLongPress={() => console.warn("long press")}
-      onPressIn={() => console.warn('on Press in')}
-      onPressOut={() => console.warn('on press out')}
-      >
-        <Text style={styles.pressablebtn}>Pressable</Text>
-      </Pressable>
-      
+  const [hide, setHide] = useState(false)
+  const [barstyle, setBarStyle] = useState('default')
+  return (
+    <View style={styles.container}>
+      <StatusBar
+        backgroundColor="orange"
+        barStyle={barstyle}
+        hidden={hide}
+      />
+      <Button title='Toggle status Bar' onPress={() => setHide(!hide)}></Button>
+      <Button title='update style' onPress={() => setBarStyle('dark-content')}></Button>
+
+
     </View>
   )
 
-
-
 }
 
+
 const styles = StyleSheet.create({
-  main:{
+  container:{
     flex:1,
     justifyContent:'center',
-    // alignItems:'center'
-
-  },
-  pressablebtn:{
-    backgroundColor:'green',
-    color:'white',
-    margin:10,
-    borderRadius:10,
-    fontSize:20,     // increase the text size 
-    shadowColor:'black',
-    elevation:5,
-    height:50,
-    textAlign:'center',
-    
-
-
-
+    marginTop:10,
   }
 })
 
-
-  
