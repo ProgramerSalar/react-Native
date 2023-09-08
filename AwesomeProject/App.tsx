@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, Button, StyleSheet, Modal } from 'react-native';
+import { View, Text, Button, StyleSheet, Modal, Pressable } from 'react-native';
 import { Manish } from './components/company';
 
 
@@ -7,61 +7,47 @@ import { Manish } from './components/company';
 
 
 export const App = () => {
-  const [showModel, setshowModel] = useState(false)
-  return (
+  return(
     <View style={styles.main}>
-      <Modal
-        transparent={true}
-        visible={showModel}
-        animationType='fade'
+      <Pressable 
+      // onPress={() => console.warn('Normal press')}
+      // onLongPress={() => console.warn("long press")}
+      onPressIn={() => console.warn('on Press in')}
+      onPressOut={() => console.warn('on press out')}
       >
-        <View style={styles.centerView}>
-          <View style={styles.modelView}>
-            <Text style={styles.textStyle}>Hello world</Text>
-            <Button title='close button' onPress={() => setshowModel(false)}></Button>
-          </View>
-        </View>
-      </Modal>
-
-
-      <View style={styles.buttonView}>
-        <Button title='OPen Model' onPress={() => setshowModel(true)}></Button>
-      </View>
-
+        <Text style={styles.pressablebtn}>Pressable</Text>
+      </Pressable>
+      
     </View>
   )
+
+
+
 }
 
-
 const styles = StyleSheet.create({
-  main: {
-    flex: 1,
-  },
-  buttonView: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  centerView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modelView: {
-    backgroundColor: 'skyblue',
-    padding: 40,
-    borderRadius: 20,
-    shadowColor: 'black',  // shadow color is dependent on elevation
-    elevation: 5,
-
+  main:{
+    flex:1,
+    justifyContent:'center',
+    // alignItems:'center'
 
   },
-  textStyle: {
-    fontSize: 30,
+  pressablebtn:{
+    backgroundColor:'green',
+    color:'white',
+    margin:10,
+    borderRadius:10,
+    fontSize:20,     // increase the text size 
+    shadowColor:'black',
+    elevation:5,
+    height:50,
+    textAlign:'center',
+    
+
+
 
   }
-
-
-
 })
 
 
+  
