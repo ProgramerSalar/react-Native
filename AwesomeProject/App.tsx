@@ -1,55 +1,52 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform } from 'react-native';
-import { Manish } from './components/company';
+// import { Manish } from './components/company';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
 
-
-
+const Stack = createNativeStackNavigator()
 
 export const App = () => {
-  const [show, setShow] = useState(false)
-  return(
-    <View style={styles.container}>
-      {
-        show ? 
-        <View style={styles.modal}>
-        <View style={styles.body}>
-        <Text>Hello World</Text>
-          <Button title='Close' onPress={() => setShow(false)}></Button>
-        
-        </View>
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+       
+        <Stack.Screen name='Home' component={Home} />
+        <Stack.Screen name='Login' component={Login} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
 
-      </View>
-      : null
 
-      }
-      <Button title='OPen' onPress={() => setShow(true)}></Button>
+
+
+
+
+
+
+const Home = (props) => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 40 }}>Home Screen</Text>
+      <Button title='Go To Login' onPress={() => props.navigation.navigate("Login")}></Button>
     </View>
   )
 }
- 
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent:'flex-end'
-
-  },
-  modal:{
-    flex:1,
-    backgroundColor:'green',
-    justifyContent:'center',
-    alignItems:'center',
-  },
-  body:{
-    backgroundColor:'white',
-    height:300,
-    width:300,
-   justifyContent:'space-around',
-    padding:20,
 
 
-  }
 
-})
+const Login = () => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text style={{ fontSize: 40 }}>Login Screen</Text>
+    </View>
+  )
+}
+
+
+
+
+
