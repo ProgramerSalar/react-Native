@@ -2,67 +2,46 @@ import React, { useMemo, useState } from 'react';
 import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, TextInput } from 'react-native';
 // import { Manish } from './components/company';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Login } from './components/Login';
-import { Home } from './components/Home';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createNativeStackNavigator()
+
+const Tab = createBottomTabNavigator()
 
 export const App = () => {
-  const btnAction = () => {
-    console.warn('hello')
-  }
-  return (
+  return(
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{title:'login',
-      headerStyle:{
-        backgroundColor:'blue',
-        
-      },
-      headerTitleStyle:{
-        fontSize:30,
-        color:'green',
-      },
-      headerTintColor:'green',
-      // headerTitle:() => <Button title='Left'></Button>
-      
-    }} >
-       
-        <Stack.Screen name='Home' component={Home}
-        options={{
-          headerTitle:()=><Button title='Left' onPress={btnAction}></Button>,
-          headerRight:()=><Header/>
+      <Tab.Navigator>
+        <Tab.Screen name='Login' component={Login} />
+        <Tab.Screen name='Signup' component={Signup} />
+      </Tab.Navigator>
 
-        }}  />
-        <Stack.Screen name='Login' component={Login} 
-        options={{title:'login',
-      headerStyle:{
-        backgroundColor:'blue',
-        
-      },
-      headerTitleStyle:{
-        fontSize:30,
-        color:'green',
-      },
-      headerTintColor:'green',
-      headerTitle:() => <Button title='Left'></Button>
-    }} 
-        
-        />
-      </Stack.Navigator>
     </NavigationContainer>
   )
+
 }
+ 
 
 
 
-const Header = () => {
+const Login = () => {
   return(
-    <TextInput placeholder='hello' style={{ fontSize:30}}/>
+    <View>
+      <Text>
+        Login
+      </Text>
+    </View>
   )
 }
 
-
+const Signup = () => {
+  return(
+    <View>
+      <Text>
+        Signup
+      </Text>
+    </View>
+  )
+}
 
 
 
