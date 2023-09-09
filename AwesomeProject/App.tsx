@@ -1,41 +1,44 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, TextInput } from 'react-native';
+import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, TextInput, ScrollView } from 'react-native';
 // import { Manish } from './components/company';
 
+
 export const App = () => {
-  const [data, setData] = useState(undefined)
 
+  const [data, setData] = useState([])
 
-  const getAPIData = async () => {
-    // api call 
-    // console.warn('hello')
-    const url = "https://jsonplaceholder.typicode.com/posts/1"
-    let result = fetch(url)
-    result = await (await result).json()
-    // console.log(result)
+  const getAPIData = async() => {
+    const url="https://jsonplaceholder.typicode.com/posts/"
+    let result = await fetch(url)
+    result = await result.json()
     setData(result)
   }
+
 
   useEffect(() => {
     getAPIData()
   },[])
 
 
-
-
   return(
-    <View>
+    <ScrollView>
       <Text style={{fontSize:40}}>
-        Api Call
+        List with API Call
       </Text>
       {
-        data ?<View>
-          <Text>{data.title}</Text>
-        </View>:null
+        data.length ? 
+        data.map((item) => 
+        
+            <View>
+            <Text style={{fontSize:30}}>ID: {item.id}</Text>
+            <Text style={{fontSize:10}}>ID: {item.title}</Text>
+
+            </View>
+           
+          
+        )
+        :null
       }
-    </View>
+    </ScrollView>
   )
-
-
 }
-  
