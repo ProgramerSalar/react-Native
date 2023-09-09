@@ -3,8 +3,8 @@ import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, 
 // import { Manish } from './components/company';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
+import { Login } from './components/Login';
+import { Home } from './components/Home';
 
 const Stack = createNativeStackNavigator()
 
@@ -65,24 +65,6 @@ const Header = () => {
 
 
 
-const Home = (props) => {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 40 }}>Home Screen</Text>
-      <Button title='Go To Login' onPress={() => props.navigation.navigate('Login')}></Button>
-    </View>
-  )
-}
-
-
-
-const Login = () => {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 40 }}>Login Screen</Text>
-    </View>
-  )
-}
 
 
 
