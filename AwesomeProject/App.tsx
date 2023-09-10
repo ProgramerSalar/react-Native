@@ -4,113 +4,67 @@ import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, 
 
 
 
-export const App =  () => {
+export const App = () => {
+    const [data, setData] = useState([])
 
-    const [name, setName] = useState('')
-    const [age, setAge] = useState(0)
-    const [email, setEmail] = useState('')
-
-
-    const [nameError, setNameError] = useState(false)
-    const [ageError, setAgeError] = useState(false)
-    const [emailError, setEmailError] = useState(false)
-
-
-
-    
-
-    const saveData = async () => {
-        
-        if(!name){
-            setNameError(true)
-        }else{
-            setNameError(false)
-        }
-
-        if(!age){
-            setAgeError(true)
-        }else{
-            setAgeError(false)
-        }
-
-        if(!email){
-            setEmailError(true)
-        }else{
-            setEmailError(false)
-        }
-
-        
-
-        if(!name || !age || !email){
-            return false
-        }
-
-
-        console.warn("next")
-
-
-
-
-        // console.warn(name,age,email)
-
+    const getAPIData = async () => {
+        // console.warn("hello")
         const url = "http://10.0.2.2:3000/users"
-        let results = await fetch(url, {
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({name,email,age})
-        })
+        let results = await fetch(url)
         results = await results.json()
-        if (results){
-            console.warn("data added")
+        console.warn(results)
+        if (results) {
+            setData(results)
+
         }
     }
 
-    
-        
-        
+    useEffect(() => {
+        getAPIData()
+    }, [])
+
+    return (
+        <View style={styles.container}>
+            <View style={styles.dataWrapper}>
+                <View style={{ flex: 1}}><Text>Name</Text></View>
+                <View style={{ flex: 2 }}><Text>Age</Text></View>
+                <View style={{ flex: 2 }}><Text>Operations</Text></View>
+
+            </View>
 
 
 
-
-
-
-
-
-
-
-
-    return(
-        <View>
-            <Text style={{fontSize:40, alignItems:'center', textAlign:'center'}}>Form</Text>
-            <TextInput placeholder='Enter Name' style={styles.input} value={name} onChangeText={(text) => setName(text)}></TextInput>
             {
-                nameError ? <Text style={{marginLeft:20, color:'red'}}>Please Enter Valid Name</Text>:null
+                data.length ?
+                    data.map((item) =>
+                        <View style={styles.dataWrapper}>
+                            <View style={{ flex: 1 }}><Text>{item.name}</Text></View>
+                            <View style={{ flex: 1 }}><Text>{item.age}</Text></View>
+                            <View style={{ flex: 1 }}><Button title='Delete'></Button></View>
+                            <View style={{ flex: 1 }}><Button title='update'></Button></View>
+
+
+                        </View>
+                    ) : null
             }
-            <TextInput placeholder='Enter Age' style={styles.input} value={age} onChangeText={(text) => setAge(text)}></TextInput>
-            {
-                ageError ? <Text style={{marginLeft:20, color:'red'}}>Please Enter Valid age</Text>:null
-            }
-            <TextInput placeholder='Enter Email' style={styles.input} value={email} onChangeText={(text) => setEmail(text)}></TextInput>
-            {
-                emailError ? <Text style={{marginLeft:20, color:'red'}}>Please Enter Valid Email</Text>:null
-            }
-            <Button title='Save Data' onPress={saveData}></Button>
-            
-            
+
         </View>
     )
-  
 }
 
 
+
+
 const styles = StyleSheet.create({
-    input:{
-        borderColor:'skyblue',
-        borderWidth:1,
-        margin:20,
-        borderRadius:10,
-        marginBottom:2
+    container: {
+        flex: 1
+    },
+    dataWrapper: {
+
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        backgroundColor: 'orange',
+        margin: 5,
+        padding: 8,
     }
 })
