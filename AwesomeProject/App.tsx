@@ -5,23 +5,29 @@ import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, 
 
 
 export const App = () => {
-    const [data, setData] = useState([])
 
 
-    const getAPIData = async () => {
-        // console.warn("function called")
-        const url = "http://10.0.2.2:3000/users"     // replace to http://192.168.1.33:3000/users this url to http://10.0.2.2:3000/users 
-        let results = await fetch(url)
-        results = await results.json()
-        // console.warn(results)
-        setData(results)
+    const saveAPIData = async () => {
+        // console.warn("Test")
+        const data = {
+            name:"Samkumar",
+            age:12,
+            email:"samkumar@gmail.com"
+        }
+        const url = "http://10.0.2.2:3000/users"
+        let result = await fetch(url,{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        result =await result.json()
+        console.warn(result)
         
+        
+
     }
-
-    useEffect(() => {
-        getAPIData()
-
-    },[])
 
 
 
@@ -34,17 +40,8 @@ export const App = () => {
     return(
         <View>
             <Text style={{fontSize:40}}>Call json server API</Text>
-            {
-                data.length ? 
-                data.map((item) => 
-                <View>
-                    <Text>Name: {item.name}</Text>
-                    <Text>AGE: {item.age}</Text>
-                    <Text>EMail: {item.email}</Text>
-
-                </View>
-                ): null
-            }
+            <Button title='Save Data' onPress={saveAPIData}></Button>
+            
         </View>
     )
   
