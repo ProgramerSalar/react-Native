@@ -15,6 +15,7 @@ export const App = () => {
         console.warn(results)
         if (results) {
             setData(results)
+            getAPIData()
 
         }
     }
@@ -22,6 +23,22 @@ export const App = () => {
     useEffect(() => {
         getAPIData()
     }, [])
+
+
+
+    const deleteUser = async (id) => {
+        const url = "http://10.0.2.2:3000/users"
+        // console.warn(`${url}/${id}`)
+        let results = await fetch(`${url}/${id}`,{
+            method:"delete"
+        }
+            )
+            results = await results.json()
+            if(results){
+                console.warn("User deleted")
+            }
+
+    }
 
     return (
         <View style={styles.container}>
@@ -40,7 +57,7 @@ export const App = () => {
                         <View style={styles.dataWrapper}>
                             <View style={{ flex: 1 }}><Text>{item.name}</Text></View>
                             <View style={{ flex: 1 }}><Text>{item.age}</Text></View>
-                            <View style={{ flex: 1 }}><Button title='Delete'></Button></View>
+                            <View style={{ flex: 1 }}><Button title='Delete' onPress={() => deleteUser(item.id)}></Button></View>
                             <View style={{ flex: 1 }}><Button title='update'></Button></View>
 
 
