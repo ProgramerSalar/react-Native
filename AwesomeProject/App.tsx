@@ -3,41 +3,49 @@ import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, 
 // import { Manish } from './components/company';
 
 
+
 export const App = () => {
-  const [data, setData] = useState([])
+    const [data, setData] = useState([])
 
-  const getAPIData = async() => {
-    // console.warn('hello')
-    const url = 'https://jsonplaceholder.typicode.com/posts/'
-    let result = await fetch(url)
-    result = await result.json()
-    setData(result)
 
-  }
+    const getAPIData = async () => {
+        // console.warn("function called")
+        const url = "http://10.0.2.2:3000/users"     // replace to http://192.168.1.33:3000/users this url to http://10.0.2.2:3000/users 
+        let results = await fetch(url)
+        results = await results.json()
+        // console.warn(results)
+        setData(results)
+        
+    }
 
-  useEffect(() => {
-    getAPIData()
-  })
+    useEffect(() => {
+        getAPIData()
 
-  return(
-    <View>
-      <Text>FlatList with Api data</Text>
-      {
-        data.length ? 
-        <FlatList 
-        data = {data}
-        renderItem={({item}) => 
+    },[])
 
+
+
+
+
+
+
+
+
+    return(
         <View>
-          <Text style={{fontSize:20}}>ID:{item.id}</Text>
-          <Text style={{fontSize:15}}>Title: {item.title}</Text>
-          <Text style={{fontSize:10}}>BOdy: {item.body}</Text>
+            <Text style={{fontSize:40}}>Call json server API</Text>
+            {
+                data.length ? 
+                data.map((item) => 
+                <View>
+                    <Text>Name: {item.name}</Text>
+                    <Text>AGE: {item.age}</Text>
+                    <Text>EMail: {item.email}</Text>
+
+                </View>
+                ): null
+            }
         </View>
-      
-      }
-        /> 
-        : null
-      }
-    </View>
-  )
+    )
+  
 }
