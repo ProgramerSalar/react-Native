@@ -1,45 +1,48 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, TextInput, ScrollView, FlatList, Alert } from 'react-native';
+// import { styles } from './components/style';
 // import { Manish } from './components/company';
 
 
 
 export const App = () => {
-    const [data, setData] = useState([])
-    
-    const searchUser =async (text) => {
-        // console.warn(text)
-        const url = `http://10.0.2.2:3000/users?q=${text}`
-        // console.warn(url)
-        let result = await fetch(url)
-        result = await result.json()
-        if(result){
-            setData(result)
 
-        }
+
+    const input = useRef()
+    const updateInput = () => {
+        // console.warn('call')
+        input.current.focus()
+        input.current.setNativeProps({
+            fontSize:30,
+            color:'red'
+        })
     }
 
 
-
+    
+    
     return(
-        <View style={{flex:1}}>
-            <TextInput
-            placeholder='Search'
-            style={{borderColor:'skyblue', borderWidth:1, margin:15, fontSize:20}}
-            onChangeText={(text)=>searchUser(text)}
-            ></TextInput>
-            {
-                data.length ? 
-                data.map((item) => <View style={{padding:10, flexDirection:'row', justifyContent:'space-around'}}>
-                    <Text style={{fontSize:20}}>{item.name}</Text>
-                    <Text style={{fontSize:20}}>{item.age}</Text>
-                    <Text style={{fontSize:20}}>{item.email}</Text>
-                </View>):null
-            }
-            
+        <View style={styles.containter}>
+            <TextInput ref={input} style={styles.input} placeholder='Enter Name'></TextInput>
+            <TextInput style={styles.input} placeholder='Enter Password' ></TextInput>
+            <Button title='update Input' onPress={updateInput} ></Button>
         </View>
     )
 
 
 }
     
+
+
+const styles = StyleSheet.create({
+    containter:{
+        flex:1,
+        padding:16
+    },
+    input:{
+        borderColor:'skyblue',
+        borderWidth:2,
+        margin:10,
+    }
+    
+})
