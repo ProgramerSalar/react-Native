@@ -6,13 +6,17 @@ import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, 
 
 export const App = () => {
     const [data, setData] = useState([])
+    const [showModal, setshowModal] = useState(false)
+    const [selectedUser, setSelectedUser] = useState(undefined)
+
+
 
     const getAPIData = async () => {
         // console.warn("hello")
         const url = "http://10.0.2.2:3000/users"
         let results = await fetch(url)
         results = await results.json()
-        console.warn(results)
+        // console.warn(results)
         if (results) {
             setData(results)
             getAPIData()
@@ -29,21 +33,29 @@ export const App = () => {
     const deleteUser = async (id) => {
         const url = "http://10.0.2.2:3000/users"
         // console.warn(`${url}/${id}`)
-        let results = await fetch(`${url}/${id}`,{
-            method:"delete"
+        let results = await fetch(`${url}/${id}`, {
+            method: "delete"
         }
-            )
-            results = await results.json()
-            if(results){
-                console.warn("User deleted")
-            }
+        )
+        results = await results.json()
+        if (results) {
+            console.warn("User deleted")
+        }
 
     }
+
+
+    const updateUser = (data) => {
+        setshowModal(true)
+        setSelectedUser(data)
+    }
+
+
 
     return (
         <View style={styles.container}>
             <View style={styles.dataWrapper}>
-                <View style={{ flex: 1}}><Text>Name</Text></View>
+                <View style={{ flex: 1 }}><Text>Name</Text></View>
                 <View style={{ flex: 2 }}><Text>Age</Text></View>
                 <View style={{ flex: 2 }}><Text>Operations</Text></View>
 
@@ -58,18 +70,34 @@ export const App = () => {
                             <View style={{ flex: 1 }}><Text>{item.name}</Text></View>
                             <View style={{ flex: 1 }}><Text>{item.age}</Text></View>
                             <View style={{ flex: 1 }}><Button title='Delete' onPress={() => deleteUser(item.id)}></Button></View>
-                            <View style={{ flex: 1 }}><Button title='update'></Button></View>
+                            <View style={{ flex: 1 }}><Button title='update' onPress={() => updateUser(item)}></Button></View>
 
 
                         </View>
                     ) : null
             }
+            <Modal visible={showModal} transparent={true}>
+                <UserModal setshowModal={setshowModal} selectedUser={selectedUser}/>
+            </Modal>
 
         </View>
     )
 }
 
+const UserModal = (props) => {
+    console.warn(props.selectedUser)
+    return (
+        <View style={styles.centerdView}>
+            <View style={styles.modalView}>
+                <Text>Name: {props.selectedUser.name}</Text>
+                <Text>Age: {props.selectedUser.age}</Text>
+                <Text>Email: {props.selectedUser.email}</Text>
+                <Button title='close' onPress={()=>props.setshowModal(false)} ></Button>
+            </View>
+        </View>
+    )
 
+}
 
 
 const styles = StyleSheet.create({
@@ -83,5 +111,22 @@ const styles = StyleSheet.create({
         backgroundColor: 'orange',
         margin: 5,
         padding: 8,
+    },
+    centerdView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+
+
+    },
+    modalView: {
+        backgroundColor: 'white',
+        padding: 40,
+        borderRadius: 20,
+        alignItems: 'center',
+        shadowColor: 'dark',
+        shadowOpacity: 0.80,
+        elevation: 5,
+
     }
 })
