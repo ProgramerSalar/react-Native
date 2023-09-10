@@ -77,7 +77,7 @@ export const App = () => {
                     ) : null
             }
             <Modal visible={showModal} transparent={true}>
-                <UserModal setshowModal={setshowModal} selectedUser={selectedUser} />
+                <UserModal setshowModal={setshowModal} selectedUser={selectedUser} getAPIData={getAPIData}/>
             </Modal>
 
         </View>
@@ -103,17 +103,36 @@ const UserModal = (props) => {
     }, [props.selectedUser])
 
 
+    const updateUser = async () => {
+        console.warn(name, age, email, props.selectedUser.id)
+        const url = "http://10.0.2.2:3000/users"
+        const id = props.selectedUser.id;
 
+
+        let results = await fetch(`${url}/${id}`,{
+            method:"Put",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({name,age,email})
+        })
+        results =await results.json()
+        if(results){
+            console.warn(results)
+            props.getAPIData()
+            props.setshowModal(false)
+        }
+    }
 
 
     // console.warn(props.selectedUser)
     return (
         <View style={styles.centerdView}>
             <View style={styles.modalView}>
-                <TextInput placeholder='update Name' style={styles.input} value={name}></TextInput>
-                <TextInput placeholder='update Age' style={styles.input} value={age}></TextInput>
-                <TextInput placeholder='update Email' style={styles.input} value={email}></TextInput>
-                <View style={{marginBottom:15}}><Button title='update' ></Button></View>
+                <TextInput placeholder='update Name' style={styles.input} value={name} onChangeText={(text) => setName(text) }></TextInput>
+                <TextInput placeholder='update Age' style={styles.input} value={age} onChangeText={(text) => setAge(text)}></TextInput>
+                <TextInput placeholder='update Email' style={styles.input} value={email} onChangeText={(text) => setEmail(text)}></TextInput>
+                <View style={{marginBottom:15}}><Button title='update' onPress={() => updateUser()} ></Button></View>
                 <Button title='close' onPress={() => props.setshowModal(false)} ></Button>
             </View>
         </View>
