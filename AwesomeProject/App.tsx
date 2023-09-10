@@ -77,7 +77,7 @@ export const App = () => {
                     ) : null
             }
             <Modal visible={showModal} transparent={true}>
-                <UserModal setshowModal={setshowModal} selectedUser={selectedUser}/>
+                <UserModal setshowModal={setshowModal} selectedUser={selectedUser} />
             </Modal>
 
         </View>
@@ -85,14 +85,36 @@ export const App = () => {
 }
 
 const UserModal = (props) => {
-    console.warn(props.selectedUser)
+    const [name, setName] = useState(undefined)
+    const [age, setAge] = useState(undefined)
+    const [email, setEmail] = useState(undefined)
+
+
+    useEffect(() => {
+
+        if (props.selectedUser) {
+            setName(props.selectedUser.name)
+            setAge(props.selectedUser.age.toString())
+            setEmail(props.selectedUser.email)
+
+        }
+
+
+    }, [props.selectedUser])
+
+
+
+
+
+    // console.warn(props.selectedUser)
     return (
         <View style={styles.centerdView}>
             <View style={styles.modalView}>
-                <Text>Name: {props.selectedUser.name}</Text>
-                <Text>Age: {props.selectedUser.age}</Text>
-                <Text>Email: {props.selectedUser.email}</Text>
-                <Button title='close' onPress={()=>props.setshowModal(false)} ></Button>
+                <TextInput placeholder='update Name' style={styles.input} value={name}></TextInput>
+                <TextInput placeholder='update Age' style={styles.input} value={age}></TextInput>
+                <TextInput placeholder='update Email' style={styles.input} value={email}></TextInput>
+                <View style={{marginBottom:15}}><Button title='update' ></Button></View>
+                <Button title='close' onPress={() => props.setshowModal(false)} ></Button>
             </View>
         </View>
     )
@@ -128,5 +150,13 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.80,
         elevation: 5,
 
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: 'skyblue',
+        width: 300,
+        marginBottom: 15,
+        borderRadius:20,
+        fontSize:20,
     }
 })
