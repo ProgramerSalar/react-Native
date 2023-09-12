@@ -1,57 +1,28 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo, useState, useRef } from 'react';
 import { View, Text, Button, StyleSheet, Modal, Pressable, StatusBar, Platform, TextInput, ScrollView, FlatList, Alert, Image } from 'react-native';
-import { Header } from './components/Header';
-import { Product } from './components/Product';
+import { ProductWrapper } from './components/ProductWrapper';
+import { UserList } from './components/UserList';
 
 
 
+const Stack = createNativeStackNavigator()
 
 export const App = () => {
 
-    const products = [
-        {
-            name:'Samsung Mobile',
-            color:'white',
-            price:2000,
-            image:'https://m.media-amazon.com/images/I/91HRACirFrL._SL1500_.jpg'
-        },
-        {
-            name:'apple Mobile',
-            color:'black',
-            price:20000,
-            image:'https://m.media-amazon.com/images/I/71GLMJ7TQiL._SL1500_.jpg'
-        },
-        {
-            name:'Lava Mobile',
-            color:'red',
-            price:1000,
-            image:'https://m.media-amazon.com/images/I/51CS5pPGiCL._SL1000_.jpg'
-        },
-        {
-            name:'Realme Mobile',
-            color:'dark',
-            price:1300,
-            image:'https://m.media-amazon.com/images/I/71HaxH9n63L._SL1500_.jpg'
-        },
-    ]
+   
 
 
 
 
     return(
-        <View>
-            <Header/>
-            <ScrollView>
-            {
-                products.map((item) => <Product item={item}/>)
-            }
-
-
-            </ScrollView>
-            
-           
-            
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen name='Home' component={ProductWrapper} />
+                <Stack.Screen name='User' component={UserList} />
+            </Stack.Navigator>
+        </NavigationContainer>
     )
 
 
